@@ -37,8 +37,22 @@ var (
 const defaultAppName = "qcode"
 
 type pageData struct {
-	User  *User
-	Error string
+	User   *User
+	Error  string
+	Domain string // sh-development.<region>
+}
+
+// domain is the ecosystem zone this instance serves. Every app sits on the same
+// subdomain in both zones, so sh-development.ru / .com links follow REGION
+// (ru | com, set by the deploy matrix). Empty REGION (local dev) means ru.
+var domain string
+
+func initDomain() {
+	region := os.Getenv("REGION")
+	if region == "" {
+		region = "ru"
+	}
+	domain = "sh-development." + region
 }
 
 func initTemplate() {
@@ -138,7 +152,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	if uid := sessionUserID(r); uid != 0 {
 		user, _ = getUserByID(uid)
 	}
-	tmpl.Execute(w, pageData{User: user}) //nolint:errcheck
+	tmpl.Execute(w, pageData{User: user, Domain: domain}) //nolint:errcheck
 }
 
 // ── main ──────────────────────────────────────────────────────────────────────
@@ -179,6 +193,7 @@ func main() {
 	}
 	jwtSecret = []byte(secretKey)
 
+	initDomain()
 	initDB()
 	initTemplate()
 	initETags()

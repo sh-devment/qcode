@@ -11,8 +11,6 @@ data/
 # air build artifacts
 build/tmp/
 
-# skeleton working files
-skeleton/backup/
 
 .claude
 CLAUDE.md
