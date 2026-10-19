@@ -256,11 +256,11 @@ document.getElementById("cp-svg").addEventListener("click", async e => {
   const btn = e.currentTarget;
   try {
     await navigator.clipboard.writeText(last.svg);
-    btn.textContent = "Copied";
+    btn.textContent = TEXT.copied;
   } catch {
-    btn.textContent = "Clipboard blocked";
+    btn.textContent = TEXT.clipboardBlocked;
   }
-  setTimeout(() => { btn.textContent = "Copy SVG"; }, 1400);
+  setTimeout(() => { btn.textContent = TEXT.copySVG; }, 1400);
 });
 
 /* Raster exports go through store.js's downloadRaster, which the ai tab's bar

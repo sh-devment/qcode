@@ -56,10 +56,10 @@ document.addEventListener("keydown", e => {
 async function confirmLeave() {
   if (!isDirty()) return true;
   const choice = await showModal({
-    message: `Unsaved changes in “${currentName}”. Save them?`,
+    message: TEXT.unsavedMsg.replace("%s", currentName),
     buttons: [
-      { value: "save",    label: "Save", cls: "primary" },
-      { value: "discard", label: "Don't save" }
+      { value: "save",    label: TEXT.save, cls: "primary" },
+      { value: "discard", label: TEXT.dontSave }
     ]
   });
   if (choice === "save") {
@@ -95,10 +95,10 @@ function cardEl(c) {
       <h3 class="card-name">${esc(c.name)}</h3>
       <div class="card-date">${stamp(c.updated_at)}</div>
       <div class="card-actions">
-        <button class="cbtn" data-act="edit">edit</button>
+        <button class="cbtn" data-act="edit">${TEXT.edit}</button>
         <button class="cbtn" data-act="svg">svg</button>
         <button class="cbtn" data-act="webp">webp</button>
-        <button class="cbtn" data-act="delete">delete</button>
+        <button class="cbtn" data-act="delete">${TEXT.delete}</button>
       </div>
     </div>`;
   return el;
@@ -193,8 +193,8 @@ grid.addEventListener("click", async e => {
     }
     case "delete": {
       const ok = await showModal({
-        message: `Delete “${name}”? This cannot be undone.`,
-        buttons: [{ value: "yes", label: "Delete", cls: "danger" }, { value: "no", label: "Cancel" }]
+        message: TEXT.deleteMsg.replace("%s", name),
+        buttons: [{ value: "yes", label: TEXT.deleteConfirm, cls: "danger" }, { value: "no", label: TEXT.cancel }]
       });
       if (ok !== "yes") return;
       try {

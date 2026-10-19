@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{.Lang}}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,6 +8,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="qcode" />
   <link rel="stylesheet" href="/style.css" />
+  <script>window.TEXT = {{.Text.JS}};</script>
 </head>
 <body>
 {{if .Error}}
@@ -18,9 +19,9 @@
 
 <nav class="navbar">
   <div class="nav-tabs">
-    <button class="tab active" data-target="panel-qcode">qcode</button>
-    <button class="tab" data-target="panel-ai">ai</button>
-    <button class="tab" data-target="panel-manual">manual</button>
+    <button class="tab active" data-target="panel-qcode">{{.Text.TabCodes}}</button>
+    <button class="tab" data-target="panel-ai">{{.Text.TabAI}}</button>
+    <button class="tab" data-target="panel-manual">{{.Text.TabManual}}</button>
   </div>
   <div class="profile-area">
     <button class="profile-btn" id="profileBtn"
@@ -34,9 +35,9 @@
         {{if .User.Name}}<span class="pi-sub">{{.User.AuthID}}</span>{{end}}
       </div>
       <div class="pi-list">
-        <a class="pi-action" href="/apps">apps</a>
-        <a class="pi-action" href="https://github.com/shumilovsergey/qcode/blob/main/README.md" target="_blank" rel="noopener">readme</a>
-        <a class="pi-action pi-logout" href="/logout">log out</a>
+        <a class="pi-action" href="/apps">{{.Text.Apps}}</a>
+        <a class="pi-action" href="https://github.com/shumilovsergey/qcode/blob/main/README.md" target="_blank" rel="noopener">{{.Text.Readme}}</a>
+        <a class="pi-action pi-logout" href="/logout">{{.Text.Logout}}</a>
       </div>
     </div>
   </div>
@@ -48,7 +49,7 @@
   <section class="panel qr-scope" id="panel-qcode">
     <div class="wrap">
       <header class="top top-create">
-        <button class="btn primary btn-create" id="code-create">Create</button>
+        <button class="btn primary btn-create" id="code-create">{{.Text.Create}}</button>
       </header>
 
       <div class="codes-status" id="codes-status"></div>
@@ -56,8 +57,8 @@
       <div class="card-grid" id="code-grid"></div>
 
       <div class="codes-empty" id="codes-empty" hidden>
-        <p>Nothing saved yet.</p>
-        <p class="sub">Press <b>Create</b> to build your first code.</p>
+        <p>{{.Text.EmptyTitle}}</p>
+        <p class="sub">{{.Text.EmptyHint}}</p>
       </div>
     </div>
   </section>
@@ -67,11 +68,11 @@
     <div class="wrap">
       <header class="top top-editor">
         <div class="savebar">
-          <label class="savebar-label" for="code-name">Name</label>
+          <label class="savebar-label" for="code-name">{{.Text.Name}}</label>
           <input type="text" id="code-name" class="savebar-name" value="default" autocomplete="off" spellcheck="false" />
-          <span class="dirty savebar-dirty" id="code-dirty" hidden title="unsaved changes"></span>
+          <span class="dirty savebar-dirty" id="code-dirty" hidden title="{{.Text.Unsaved}}"></span>
           <span class="save-status savebar-status" id="code-status"></span>
-          <button class="btn primary savebar-save" id="code-save">Save</button>
+          <button class="btn primary savebar-save" id="code-save">{{.Text.Save}}</button>
           <span class="savebar-spin" id="code-spin" aria-hidden="true"></span>
         </div>
       </header>
@@ -95,18 +96,18 @@
           </div>
 
           <div class="exportbar">
-            <button class="btn primary" id="dl-png">Download PNG</button>
-            <button class="btn" id="dl-webp">Download WebP</button>
-            <select id="pngscale" aria-label="Raster scale">
+            <button class="btn primary" id="dl-png">{{.Text.DownloadPNG}}</button>
+            <button class="btn" id="dl-webp">{{.Text.DownloadWebP}}</button>
+            <select id="pngscale" aria-label="{{.Text.RasterScale}}">
               <option value="1">1&times;</option>
               <option value="2" selected>2&times;</option>
               <option value="4">4&times;</option>
               <option value="8">8&times;</option>
             </select>
-            <button class="btn" id="dl-svg">Download SVG</button>
-            <button class="btn" id="cp-svg">Copy SVG</button>
-            <button class="btn" id="randomize">Randomize</button>
-            <button class="btn" id="reset">Reset</button>
+            <button class="btn" id="dl-svg">{{.Text.DownloadSVG}}</button>
+            <button class="btn" id="cp-svg">{{.Text.CopySVG}}</button>
+            <button class="btn" id="randomize">{{.Text.Randomize}}</button>
+            <button class="btn" id="reset">{{.Text.Reset}}</button>
           </div>
         </div>
 
@@ -120,11 +121,11 @@
     <div class="wrap">
       <header class="top top-editor">
         <div class="savebar">
-          <label class="savebar-label" for="ai-name">Name</label>
+          <label class="savebar-label" for="ai-name">{{.Text.Name}}</label>
           <input type="text" id="ai-name" class="savebar-name" value="default" autocomplete="off" spellcheck="false" />
-          <span class="dirty savebar-dirty" id="ai-dirty" hidden title="unsaved changes"></span>
+          <span class="dirty savebar-dirty" id="ai-dirty" hidden title="{{.Text.Unsaved}}"></span>
           <span class="save-status savebar-status" id="ai-status"></span>
-          <button class="btn primary savebar-save" id="ai-save">Save</button>
+          <button class="btn primary savebar-save" id="ai-save">{{.Text.Save}}</button>
           <span class="savebar-spin" id="ai-spin" aria-hidden="true"></span>
         </div>
       </header>
@@ -139,53 +140,53 @@
 
         <aside class="ai-console">
           <ol class="ai-steps">
-            <li>Copy the instructions — every parameter, plus this code as it stands.</li>
-            <li>Paste them into your own AI and describe the code you want.</li>
-            <li>Paste the JSON it returns below and apply it.</li>
+            <li>{{.Text.AIStep1}}</li>
+            <li>{{.Text.AIStep2}}</li>
+            <li>{{.Text.AIStep3}}</li>
           </ol>
 
-          <button class="btn ai-copy" id="ai-copy">Copy instructions</button>
+          <button class="btn ai-copy" id="ai-copy">{{.Text.CopyInstructions}}</button>
 
           <textarea id="ai-json" class="ai-json" spellcheck="false" autocomplete="off"
                     placeholder='{&#10;  "shape": "circle",&#10;  "fg": "#15181B"&#10;}'></textarea>
 
           <div class="ai-errors" id="ai-errors" hidden></div>
 
-          <button class="btn primary ai-apply" id="ai-apply">Apply</button>
+          <button class="btn primary ai-apply" id="ai-apply">{{.Text.Apply}}</button>
 
           <!-- Images are bytes, so they are uploaded rather than described. They
                survive Apply; the JSON still controls everything about them. -->
           <div class="ai-uploads">
-            <p class="ai-uploads-head">Images</p>
+            <p class="ai-uploads-head">{{.Text.Images}}</p>
             <div class="ai-upload" data-param="logo">
-              <span class="ai-up-name">Logo</span>
-              <span class="ai-up-state">none</span>
-              <label class="ai-up-pick">Choose<input type="file" accept="image/*" data-param="logo" hidden /></label>
-              <button class="ai-up-clear" type="button" data-param="logo" hidden>Clear</button>
+              <span class="ai-up-name">{{.Text.Logo}}</span>
+              <span class="ai-up-state">{{.Text.JS.None}}</span>
+              <label class="ai-up-pick">{{.Text.Choose}}<input type="file" accept="image/*" data-param="logo" hidden /></label>
+              <button class="ai-up-clear" type="button" data-param="logo" hidden>{{.Text.Clear}}</button>
             </div>
             <div class="ai-upload" data-param="bgImage">
-              <span class="ai-up-name">Background</span>
-              <span class="ai-up-state">none</span>
-              <label class="ai-up-pick">Choose<input type="file" accept="image/*" data-param="bgImage" hidden /></label>
-              <button class="ai-up-clear" type="button" data-param="bgImage" hidden>Clear</button>
+              <span class="ai-up-name">{{.Text.Background}}</span>
+              <span class="ai-up-state">{{.Text.JS.None}}</span>
+              <label class="ai-up-pick">{{.Text.Choose}}<input type="file" accept="image/*" data-param="bgImage" hidden /></label>
+              <button class="ai-up-clear" type="button" data-param="bgImage" hidden>{{.Text.Clear}}</button>
             </div>
           </div>
         </aside>
       </div>
 
       <div class="exportbar ai-exportbar">
-        <button class="btn primary" id="ai-dl-png">Download PNG</button>
-        <button class="btn" id="ai-dl-webp">Download WebP</button>
-        <select id="ai-pngscale" aria-label="Raster scale">
+        <button class="btn primary" id="ai-dl-png">{{.Text.DownloadPNG}}</button>
+        <button class="btn" id="ai-dl-webp">{{.Text.DownloadWebP}}</button>
+        <select id="ai-pngscale" aria-label="{{.Text.RasterScale}}">
           <option value="1">1&times;</option>
           <option value="2" selected>2&times;</option>
           <option value="4">4&times;</option>
           <option value="8">8&times;</option>
         </select>
-        <button class="btn" id="ai-dl-svg">Download SVG</button>
-        <button class="btn" id="ai-cp-svg">Copy SVG</button>
-        <button class="btn" id="ai-randomize">Randomize</button>
-        <button class="btn" id="ai-reset">Reset</button>
+        <button class="btn" id="ai-dl-svg">{{.Text.DownloadSVG}}</button>
+        <button class="btn" id="ai-cp-svg">{{.Text.CopySVG}}</button>
+        <button class="btn" id="ai-randomize">{{.Text.Randomize}}</button>
+        <button class="btn" id="ai-reset">{{.Text.Reset}}</button>
       </div>
     </div>
   </section>
@@ -208,12 +209,12 @@
     <div class="login-card">
       <div class="login-logo">qcode</div>
       <a class="login-domain" href="https://{{.Domain}}" target="_blank" rel="noopener">{{.Domain}}</a>
-      <a class="login-btn" href="/login">войти</a>
+      <a class="login-btn" href="/login">{{.Text.Login}}</a>
     </div>
   </div>
 
   <div class="app-about">
-    <p>Конструктор QR-кодов платформы sh-development. Кодировщик написан с нуля — без библиотек и внешних запросов. Форма модулей, глаза, градиенты, логотип, экспорт в SVG и PNG.</p>
+    <p>{{.Text.About}}</p>
   </div>
 
   <div class="login-divider">

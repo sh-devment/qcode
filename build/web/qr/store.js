@@ -181,12 +181,12 @@ function downloadRaster(out, name, scale, mime, ext) {
        URI instead of failing, which would hand the user a .webp that is not
        one. */
     if (url.indexOf(`data:${mime}`) !== 0) {
-      alert(`${ext.toUpperCase()} export is not supported by this browser. Download the SVG or PNG instead.`);
+      alert(TEXT.exportNoSupport.replace("%s", ext.toUpperCase()));
       return;
     }
     download(`${safeFile(name)}@${k}x.${ext}`, url);
   };
-  img.onerror = () => alert(`${ext.toUpperCase()} export failed. Download the SVG instead.`);
+  img.onerror = () => alert(TEXT.exportFailed.replace("%s", ext.toUpperCase()));
   img.src = svgDataURI(out.svg);
 }
 

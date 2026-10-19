@@ -225,7 +225,7 @@ async function aiCopy() {
   const text = aiBuildSpec();
   try {
     await navigator.clipboard.writeText(text);
-    aiFlash(aiCopyBt, "Copied");
+    aiFlash(aiCopyBt, TEXT.copied);
     return;
   } catch { /* fall through */ }
   try {
@@ -237,7 +237,7 @@ async function aiCopy() {
     const ok = document.execCommand("copy");
     ta.remove();
     if (!ok) throw new Error("denied");
-    aiFlash(aiCopyBt, "Copied");
+    aiFlash(aiCopyBt, TEXT.copied);
   } catch {
     aiErrors(["Could not reach the clipboard. Copy the instructions from the console instead."]);
     console.log(text); // eslint-disable-line no-console
@@ -262,7 +262,7 @@ function aiApply() {
 
   updateDirty();
   aiPreview();
-  aiFlash(aiApplyBt, "Applied");
+  aiFlash(aiApplyBt, TEXT.applied);
 }
 
 /* ---------- image uploads ----------
@@ -274,7 +274,7 @@ const aiUploadRows = Array.from(document.querySelectorAll(".ai-upload"));
 function aiSyncUploads() {
   for (const row of aiUploadRows) {
     const on = !!S[row.dataset.param];
-    row.querySelector(".ai-up-state").textContent = on ? "uploaded" : "none";
+    row.querySelector(".ai-up-state").textContent = on ? TEXT.uploaded : TEXT.none;
     row.classList.toggle("on", on);
     row.querySelector(".ai-up-clear").hidden = !on;
   }
@@ -367,9 +367,9 @@ aiWire("ai-cp-svg", async () => {
   const btn = document.getElementById("ai-cp-svg");
   try {
     await navigator.clipboard.writeText(out.svg);
-    aiFlash(btn, "Copied");
+    aiFlash(btn, TEXT.copied);
   } catch {
-    aiFlash(btn, "Clipboard blocked");
+    aiFlash(btn, TEXT.clipboardBlocked);
   }
 });
 
