@@ -5,7 +5,7 @@
 
 ---
 
-## [[ English README.md ]](tools/README-COM.md)
+[[ English README.md ]](tools/README-COM.md)
 
-## [[ Русский README.md ]](tools/README-RU.md)
+[[ Русский README.md ]](tools/README-RU.md)
 
