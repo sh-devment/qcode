@@ -202,6 +202,7 @@ func main() {
 	mux.HandleFunc("DELETE /api/codes/{id}", requireAuthJSON(handleDeleteCode))
 
 	mux.Handle("GET /favicon.svg", staticCache(fileServer))
+	mux.Handle("GET /apple-touch-icon.png", staticCache(fileServer))
 	mux.Handle("GET /style.css", staticCache(fileServer))
 	mux.Handle("GET /script.js", staticCache(fileServer))
 	mux.Handle("GET /qr/", staticCache(fileServer)) // QR engine modules — web/qr/*.js
