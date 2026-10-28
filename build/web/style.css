@@ -178,10 +178,11 @@ body { background: transparent; }
   position: relative;
   overflow: hidden;
   height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 24px 24px 20px;
+  padding: 24px 20px 28px;
 }
 
 /* card sits in the top flex zone, centered within it */
